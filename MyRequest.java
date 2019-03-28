@@ -1,0 +1,57 @@
+package MyTomcat1;
+
+
+import java.io.IOException;
+import java.io.InputStream;
+/**
+ * MyRequest
+ * <p>Title: MyRequest</p>
+ * <p>Description: </p> 
+ * @author	ZCL
+ * @date	2019年3月28日下午12:35:32
+ * @version 1.0
+ */
+public class MyRequest {
+	private String url;
+	private String method;
+	
+	public MyRequest(InputStream inputStream) throws IOException{
+		String httpRequest = "";
+		byte[] httpRequestBytes =new byte[1024];
+		int lengh = 0;
+		if((lengh = inputStream.read(httpRequestBytes)) > 0){
+			httpRequest = new String(httpRequestBytes, 0, lengh);
+		}
+		/**
+		 * HTTP 请求协议
+		 */
+		String httpHead = httpRequest.split("\n")[0];
+		url = httpHead.split("\\s")[1];
+		method = httpHead.split("\\s")[0];
+		System.out.println(this);
+	}
+
+	public String getUrl() {
+		return url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+
+	public String getMethod() {
+		return method;
+	}
+
+	public void setMethod(String method) {
+		this.method = method;
+	}
+
+	@Override
+	public String toString() {
+		return "MyRequest [url=:" + url + ", method=:" + method + "]";
+	}
+
+	
+	
+}
